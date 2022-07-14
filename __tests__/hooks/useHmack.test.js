@@ -18,6 +18,7 @@ test("should use hook", async () => {
 
   expect(typeof result.current.setAlgo).toBe("function");
   expect(typeof result.current.setMessage).toBe("function");
+  expect(typeof result.current.setSecret).toBe("function");
   await waitFor(() =>
     expect(result.current.hmacked).toBe("12d7d6f9dc80359d60f1cdbae4502535")
   );
