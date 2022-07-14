@@ -11,7 +11,8 @@
   "jest": {
     "testEnvironment": "jsdom",
     "testPathIgnorePatterns": [
-      "__tests__/C"
+      "__tests__/C",
+      "example"
     ]
   },
   "eslintConfig": {

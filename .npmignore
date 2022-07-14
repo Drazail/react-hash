@@ -1,0 +1,18 @@
+# TESTS
+coverage/
+# Examples
+example
+# OSX
+#
+.DS_Store
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+.eslintrc
+__tests__/
+coverage/
+yarn.lock
+package-lock.json

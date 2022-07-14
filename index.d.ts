@@ -34,3 +34,9 @@ export interface useHash{
     setMessage: (message: string)=> void;
     setAlgo: (algo:string)=>void;
 }
+
+export interface useHmac{
+    hashed: string;
+    setMessage: (message: string)=> void;
+    setAlgo: (algo:string)=>void;
+}

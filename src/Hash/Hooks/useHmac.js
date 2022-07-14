@@ -5,18 +5,18 @@ const useHmac = (hmacAlgo = CONSTANTS.HmacAlgorithms.HmacMD5, initialMessage = "
   const [Algo, setAlgo] = useState(hmacAlgo);
   const [message, setMessage] = useState(initialMessage);
   const [secret, setSecret] = useState(initialSecret);
-  const [hmacked, setHmaced] = useState();
+  const [hmaced, setHmaced] = useState();
   useEffect(() => {
-    const hmack = () =>
+    const hmac = () =>
       hmacString(message, secret, Algo)
         .then((a) => setHmaced(a))
         .catch((er) => {
           console.error(er);
         });
-    hmack();
+    hmac();
   }, [message,secret,Algo]);
 
-  return { hmacked, setAlgo, setMessage, setSecret };
+  return { hmaced, setAlgo, setMessage, setSecret };
 };
 
 export default useHmac;
