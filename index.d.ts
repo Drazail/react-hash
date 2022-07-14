@@ -23,11 +23,14 @@ export namespace CONSTANTS {
         export const PBEwithHmacSHA384: string;
         export const PBEwithHmacSHA512: string;
     }
-    export namespace Events {
-        export const onBatchReccieved: string;
-    }
 }
 
 export function JSHash(message: string, algorithm: string): Promise<string>;
 
 export function JSHmac(message: string, secret: string, algorithm: string): Promise<string>;
+
+export interface useHash{
+    hashed: string;
+    setMessage: (message: string)=> void;
+    setAlgo: (algo:string)=>void;
+}
