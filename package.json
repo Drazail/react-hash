@@ -2,7 +2,7 @@
   "name": "react-hash",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "peerDependencies": {
     "react": "^18.2.0"
   },
   "scripts": {

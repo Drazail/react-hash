@@ -76,39 +76,6 @@ check out the [example](https://github.com/Drazail/react-hash/blob/f992bdb09b1df
 # React Hooks
 
 
-
-
-## Topics
-
-- [documentation](https://github.com/Drazail/react-hash/wiki/Documentation)
-- [to do](https://github.com/Drazail/react-hash/wiki/To-Do)
-- [contribution guide](https://github.com/Drazail/react-hash/wiki/Contribution-Guide)
-- [code of conduct](https://github.com/Drazail/react-hash/wiki/Code-of-Conduct)
-
-#### Hashing files and urls are only supported on android at this point
-
-### Todo
-
-- SHA-3
-- other Keccak lengths
-
-### Status
-
-|                        | iOS                | Android            | windows            |
-| ---------------------- | ------------------ | ------------------ | ------------------ |
-| hash local files       | :x:                | :heavy_check_mark: | :x:                |
-| hash network assets    | :x:                | :heavy_check_mark: | :x:                |
-| hash network responses | :x:                | :heavy_check_mark: | :x:                |
-| hash bundle assets     | :x:                | :x:                | :x:                |
-| hash strings           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| HMAC                   | :heavy_check_mark:                | :heavy_check_mark: | :heavy_check_mark:     |
-
-
-
-- all PRs are welcome
-
-[![Package Quality](https://npm.packagequality.com/badge/react-native-hash.png)](https://packagequality.com/#?package=react-native-hash)
-
 ---
 #### Credits
 
