@@ -35,13 +35,13 @@ export function JSHmac(
 
 export interface useHash {
   hashed: string;
-  setMessage: (message: string) => void;
-  setAlgo: (algo: string) => void;
+  setMessage: (message: string) => Promise<void>;
+  setAlgo: (algo: string) => Promise<void>;
 }
 
 export interface useHmac {
   hashed: string;
-  setMessage: (message: string) => void;
-  setAlgo: (algo: string) => void;
-  setSecret: (secret: string) => void;
+  setMessage: (message: string) => Promise<void>;
+  setAlgo: (algo: string) => Promise<void>;
+  setSecret: (secret: string) => Promise<void>;
 }

@@ -32,7 +32,7 @@ const hmacAlgorithm = CONSTANTS.HmacAlgorithms.HmacSHA512;
 # Cross Platform API
 
 
-if you are using expo, `JSHash` and `JSHmac` are pure javaScript implementations and should work in any enviroment.
+if you are using something besides react, `JSHash` and `JSHmac` are pure javaScript implementations and should work in any JS enviroment.
 ***
 
 
@@ -69,11 +69,35 @@ JSHmac("message", "SecretKey", CONSTANTS.HmacAlgorithms.HmacSHA256)
 
 - keccak implementation defaults to 512 and is not tested against all attack vectors.
 
-check out the [example](https://github.com/Drazail/react-hash/blob/f992bdb09b1df5652a3b1590ca6e903a077ad4e6/example/App.js#L88-L90) for more information.
-
 ***
 
 # React Hooks
+
+Following hooks are available:
+
+`interface useHash {
+  hashed: string;
+  setMessage: (message: string) => void;
+  setAlgo: (algo: string) => void;
+}`
+
+`interface useHmac {
+  hashed: string;
+  setMessage: (message: string) => void;
+  setAlgo: (algo: string) => void;
+  setSecret: (secret: string) => void;
+}`
+
+## Usage
+
+```javaScript
+const {hashed: hashedMessage, setMessage: setHashMessage, setAlgo: setHashAlgo} = useHash();
+const {hmaced: hmac, setMessage: setHmacMessage, setAlgo: setHmacAlgo, setSecret: setHmacSecret} = useHmac();
+```
+
+`hashed` and `hmaced` will update after a call to one of the setters is resolved.
+
+note that all the setter functions in these two hooks are async and will return a `promise`.
 
 
 ---
