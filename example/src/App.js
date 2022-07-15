@@ -3,14 +3,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import TextField from '@mui/material/TextField';
-import React,{ useState } from "react";
+import TextField from "@mui/material/TextField";
+import React, { useState } from "react";
 function App() {
   const [hashAlgorithm, setHashAlgorithm] = useState("");
   const [hmacAlgorithm, setHmacAlgorithm] = useState("");
-  
-  const {hashed: hashedMessage, setMessage: setHashMessage, setAlgo: setHashAlgo} = useHash();
-  const {hmaced: hmac, setMessage: setHmacMessage, setAlgo: setHmacAlgo, setSecret: setHmacSecret} = useHmac();
+  console.log(useHash());
+  const [hashedMessage, setHashAlgo, setHashMessage] = useHash();
+  const [hmac, setHmacAlgo, setHmacMessage, setHmacSecret] = useHmac();
 
   const handleHashAlgorithmChange = (event) => {
     setHashAlgorithm(event.target.value);
@@ -49,7 +49,13 @@ function App() {
             })}
           </Select>
         </FormControl>
-        <TextField label="message" fullWidth  variant="outlined" style={{ marginTop:20}} onChange={handleHashStringChange}/>
+        <TextField
+          label="message"
+          fullWidth
+          variant="outlined"
+          style={{ marginTop: 20 }}
+          onChange={handleHashStringChange}
+        />
         <p>{hashedMessage}</p>
       </div>
       <div style={{ padding: 20 }}>
@@ -65,8 +71,20 @@ function App() {
             })}
           </Select>
         </FormControl>
-        <TextField label="message" fullWidth  variant="outlined" style={{ marginTop:20}} onChange={handleHMacStringChange}/>
-        <TextField label="secret" fullWidth  variant="outlined" style={{ marginTop:20}} onChange={handleHMacSecretChange}/>
+        <TextField
+          label="message"
+          fullWidth
+          variant="outlined"
+          style={{ marginTop: 20 }}
+          onChange={handleHMacStringChange}
+        />
+        <TextField
+          label="secret"
+          fullWidth
+          variant="outlined"
+          style={{ marginTop: 20 }}
+          onChange={handleHMacSecretChange}
+        />
         <p>{hmac}</p>
       </div>
     </div>
