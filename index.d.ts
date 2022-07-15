@@ -33,15 +33,22 @@ export function JSHmac(
   algorithm: string
 ): Promise<string>;
 
-export interface useHash {
-  hashed: string;
-  setMessage: (message: string) => Promise<void>;
-  setAlgo: (algo: string) => Promise<void>;
-}
+export function useHash(
+  hmacAlgo?: string = "MD5",
+  initialMessage: ?string = "hello World",
+): [
+  hashed: string,
+  setMessage: (message: string) => Promise<void>,
+  setAlgo: (algo: string) => Promise<void>
+];
 
-export interface useHmac {
-  hashed: string;
-  setMessage: (message: string) => Promise<void>;
-  setAlgo: (algo: string) => Promise<void>;
-  setSecret: (secret: string) => Promise<void>;
-}
+export function useHmac(
+  hmacAlgo?: string = "HmacMD5",
+  initialMessage: ?string = "hello World",
+  initialSecret: ?string = "SecretKey"
+): [
+  hashed: string,
+  setMessage: (message: string) => Promise<void>,
+  setAlgo: (algo: string) => Promise<void>,
+  setSecret: (secret: string) => Promise<void>
+];

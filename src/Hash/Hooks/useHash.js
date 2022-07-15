@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import hashString from "../JSHash";
 import CONSTANTS from "../../../Constants";
-const useHash = (hashAlgo = CONSTANTS.HashAlgorithms.md5, initialMessage = "hello World") => {
+const useHash = (
+  hashAlgo = CONSTANTS.HashAlgorithms.md5,
+  initialMessage = "hello World"
+) => {
   const [Algo, setAlgo] = useState(hashAlgo);
   const [message, setMessage] = useState(initialMessage);
   const [hashed, setHashed] = useState();
@@ -13,9 +16,9 @@ const useHash = (hashAlgo = CONSTANTS.HashAlgorithms.md5, initialMessage = "hell
           console.error(er);
         });
     hash();
-  }, [message,Algo]);
+  }, [message, Algo]);
 
-  return { hashed, setAlgo, setMessage };
+  return [hashed, setAlgo, setMessage];
 };
 
 export default useHash;

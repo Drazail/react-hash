@@ -12,15 +12,20 @@ import {
   HmacSHA384s,
   HmacSHA512s,
 } from "../C";
-
+/**
+ * hmacedMessage == result.current[0]
+ * SetAlgo == result.current[1]
+ * setMessage == result.current[2]
+ * setSecret == result.current[3]
+ */
 test("should use hook", async () => {
   const { result } = renderHook(() => useHmac());
 
-  expect(typeof result.current.setAlgo).toBe("function");
-  expect(typeof result.current.setMessage).toBe("function");
-  expect(typeof result.current.setSecret).toBe("function");
+  expect(typeof result.current[1]).toBe("function");
+  expect(typeof result.current[2]).toBe("function");
+  expect(typeof result.current[3]).toBe("function");
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("12d7d6f9dc80359d60f1cdbae4502535")
+    expect(result.current[0]).toBe("12d7d6f9dc80359d60f1cdbae4502535")
   );
 });
 
@@ -29,7 +34,7 @@ test("should use initial message", async () => {
     useHmac(CONSTANTS.HmacAlgorithms.HmacMD5, "testMessage")
   );
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 });
 
@@ -38,7 +43,7 @@ test("should use initial secret", async () => {
       useHmac(CONSTANTS.HmacAlgorithms.HmacMD5, "testMessage", "SecretKey-2")
     );
     await waitFor(() =>
-      expect(result.current.hmaced).toBe("d5b755795cdf69b1b320ba2cf00e6bb3")
+      expect(result.current[0]).toBe("d5b755795cdf69b1b320ba2cf00e6bb3")
     );
   });
 
@@ -46,15 +51,15 @@ test("should update message", async () => {
   const { result } = renderHook(() => useHmac(CONSTANTS.HmacAlgorithms.HmacMD5));
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("12d7d6f9dc80359d60f1cdbae4502535")
+    expect(result.current[0]).toBe("12d7d6f9dc80359d60f1cdbae4502535")
   );
-  act(() => result.current.setMessage("testMessage1"));
+  act(() => result.current[2]("testMessage1"));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("4f58bb5dd9d2b692b0c6764c6447e34f")
+    expect(result.current[0]).toBe("4f58bb5dd9d2b692b0c6764c6447e34f")
   );
-  act(() => result.current.setMessage("testMessage2"));
+  act(() => result.current[2]("testMessage2"));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("0cc80d81ca954657d77cfd055fbe5bec")
+    expect(result.current[0]).toBe("0cc80d81ca954657d77cfd055fbe5bec")
   );
 });
 
@@ -62,15 +67,15 @@ test("should update secret", async () => {
     const { result } = renderHook(() => useHmac(CONSTANTS.HmacAlgorithms.HmacMD5));
   
     await waitFor(() =>
-      expect(result.current.hmaced).toBe("12d7d6f9dc80359d60f1cdbae4502535")
+      expect(result.current[0]).toBe("12d7d6f9dc80359d60f1cdbae4502535")
     );
-    act(() => result.current.setSecret("SecretKey-1"));
+    act(() => result.current[3]("SecretKey-1"));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe("35ae1a8865638f584ded5de3862b019e")
+      expect(result.current[0]).toBe("35ae1a8865638f584ded5de3862b019e")
     );
-    act(() => result.current.setSecret("SecretKey-2"));
+    act(() => result.current[3]("SecretKey-2"));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe("81cbda2898ad9fa5c7fe7de1aa451c23")
+      expect(result.current[0]).toBe("81cbda2898ad9fa5c7fe7de1aa451c23")
     );
   });
 
@@ -80,11 +85,11 @@ test("should update algo", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA1));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA1));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "b039ebfa8c171945745f265b349d6b9058683add"
     )
   );
@@ -96,13 +101,13 @@ test("should pass all test strings for MD5", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-MD5 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
-    await waitFor(() => expect(result.current.hmaced).toBe(HmacMD5s[index]));
+    act(() => result.current[2](TestStrings[index]));
+    await waitFor(() => expect(result.current[0]).toBe(HmacMD5s[index]));
   }
 });
 
@@ -112,20 +117,20 @@ test("should pass all test strings for HMAC-SHA-1", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA1));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA1));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "b039ebfa8c171945745f265b349d6b9058683add"
     )
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-SHA-1 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
-    await waitFor(() => expect(result.current.hmaced).toBe(HmacSHA1s[index]));
+    act(() => result.current[2](TestStrings[index]));
+    await waitFor(() => expect(result.current[0]).toBe(HmacSHA1s[index]));
   }
 });
 
@@ -135,21 +140,21 @@ test("should pass all test strings for HMAC-SHA-224", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA224));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA224));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "c020f4a07df71faff9d7c4e27d2d23870f913b0728dd609598aec3af"
     )
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-SHA-224 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
+    act(() => result.current[2](TestStrings[index]));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe(HmacSHA224s[index])
+      expect(result.current[0]).toBe(HmacSHA224s[index])
     );
   }
 });
@@ -160,21 +165,21 @@ test("should pass all test strings for HMAC-SHA-256", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA256));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA256));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "57fec5525b413ee9760223f72b90b1602f87bff9ff81355ccd96b19358c14d9d"
     )
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-SHA-256 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
+    act(() => result.current[2](TestStrings[index]));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe(HmacSHA256s[index])
+      expect(result.current[0]).toBe(HmacSHA256s[index])
     );
   }
 });
@@ -185,21 +190,21 @@ test("should pass all test strings for HMAC-SHA-384", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA384));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA384));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "ace53da255a7dec8bb60906943bef6077c2ff7fef492f12e1a3bdac2c650fef9089b71f98bb4dbdedbb8db328d9dec1b"
     )
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-SHA-384 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
+    act(() => result.current[2](TestStrings[index]));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe(HmacSHA384s[index])
+      expect(result.current[0]).toBe(HmacSHA384s[index])
     );
   }
 });
@@ -210,21 +215,21 @@ test("should pass all test strings for HMAC-SHA-512", async () => {
   );
 
   await waitFor(() =>
-    expect(result.current.hmaced).toBe("7b216128808b283b9a88dd453f480e0c")
+    expect(result.current[0]).toBe("7b216128808b283b9a88dd453f480e0c")
   );
 
-  act(() => result.current.setAlgo(CONSTANTS.HmacAlgorithms.HmacSHA512));
+  act(() => result.current[1](CONSTANTS.HmacAlgorithms.HmacSHA512));
   await waitFor(() =>
-    expect(result.current.hmaced).toBe(
+    expect(result.current[0]).toBe(
       "54fb61eee2b321956d3fdb36f1fd4f8582094906ca03ed5ac583e4caf750ca65f74d15c4c6502322212315b7a0e1e71b329565f5111eb43a8015cae929d67640"
     )
   );
 
   for (let index = 0; index < TestStrings.length; index++) {
     process.stdout.write(`processing TestString[${index}]  on HMAC-SHA-512 algo`);
-    act(() => result.current.setMessage(TestStrings[index]));
+    act(() => result.current[2](TestStrings[index]));
     await waitFor(() =>
-      expect(result.current.hmaced).toBe(HmacSHA512s[index])
+      expect(result.current[0]).toBe(HmacSHA512s[index])
     );
   }
 });
