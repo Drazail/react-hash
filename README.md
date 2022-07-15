@@ -101,8 +101,8 @@ export function useHmac(
 ## Usage
 
 ```javaScript
-const [hashedMessage, setHashMessage, setHashAlgo] = useHash();
-const [hmac, setHmacMessage, setHmacAlgo, setHmacSecret] = useHmac();
+const [hashedMessage, setHashAlgo, setHashMessage] = useHash();
+const [hmac, setHmacAlgo, setHmacMessage, setHmacSecret] = useHmac();
 ```
 
 `hashedMessage` and `hmac` will update after a call to one of the setters is resolved.
