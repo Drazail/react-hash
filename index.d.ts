@@ -34,7 +34,7 @@ export function JSHmac(
 ): Promise<string>;
 
 export function useHash(
-  hmacAlgo?: string = "MD5",
+  hmacAlgo?: CONSTANTS.HashAlgorithms = CONSTANTS.HashAlgorithms.md5,
   initialMessage: ?string = "hello World",
 ): [
   hashed: string,
@@ -43,7 +43,7 @@ export function useHash(
 ];
 
 export function useHmac(
-  hmacAlgo?: string = "HmacMD5",
+  hmacAlgo?: CONSTANTS.HmacAlgorithms = CONSTANTS.HmacAlgorithms.HmacMD5,
   initialMessage: ?string = "hello World",
   initialSecret: ?string = "SecretKey"
 ): [

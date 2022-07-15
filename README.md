@@ -1,4 +1,4 @@
-# react-native-hash
+# react-hash
 
 ## Getting started
 
@@ -32,7 +32,7 @@ const hmacAlgorithm = CONSTANTS.HmacAlgorithms.HmacSHA512;
 # Cross Platform API
 
 
-if you are using something besides react, `JSHash` and `JSHmac` are pure javaScript implementations and should work in any JS enviroment.
+if you are using something besides react, as `JSHash` and `JSHmac` are pure javaScript implementations they should work in any JS enviroment.
 ***
 
 
@@ -56,7 +56,7 @@ JSHmac(message: string, secret: string, algorithm: string): Promise<string>;
 #### Example :
 
 ```javascript
-import { JSHash, JSHmac, CONSTANTS } from "react-native-hash";
+import { JSHash, JSHmac, CONSTANTS } from "react-hash";
 
 JSHash("message", CONSTANTS.HashAlgorithms.sha256)
   .then(hash => console.log(hash))
@@ -75,35 +75,45 @@ JSHmac("message", "SecretKey", CONSTANTS.HmacAlgorithms.HmacSHA256)
 
 Following hooks are available:
 
-`interface useHash {
-  hashed: string;
-  setMessage: (message: string) => void;
-  setAlgo: (algo: string) => void;
-}`
+```javaScript
+export function useHash(
+  hmacAlgo?: string = "MD5",
+  initialMessage: ?string = "hello World",
+): [
+  hashed: string,
+  setMessage: (message: string) => Promise<void>,
+  setAlgo: (algo: string) => Promise<void>
+];
+```
 
-`interface useHmac {
-  hashed: string;
-  setMessage: (message: string) => void;
-  setAlgo: (algo: string) => void;
-  setSecret: (secret: string) => void;
-}`
-
+```javaScript
+export function useHmac(
+  hmacAlgo?: string = "HmacMD5",
+  initialMessage: ?string = "hello World",
+  initialSecret: ?string = "SecretKey"
+): [
+  hashed: string,
+  setMessage: (message: string) => Promise<void>,
+  setAlgo: (algo: string) => Promise<void>,
+  setSecret: (secret: string) => Promise<void>
+];
+```
 ## Usage
 
 ```javaScript
-const {hashed: hashedMessage, setMessage: setHashMessage, setAlgo: setHashAlgo} = useHash();
-const {hmaced: hmac, setMessage: setHmacMessage, setAlgo: setHmacAlgo, setSecret: setHmacSecret} = useHmac();
+const [hashedMessage, setHashMessage, setHashAlgo] = useHash();
+const [hmac, setHmacMessage, setHmacAlgo, setHmacSecret] = useHmac();
 ```
 
-`hashed` and `hmaced` will update after a call to one of the setters is resolved.
+`hashedMessage` and `hmac` will update after a call to one of the setters is resolved.
 
-note that all the setter functions in these two hooks are async and will return a `promise`.
+note that all the setter functions of these two hooks are async and will return a `promise`.
 
 
 ---
 #### Credits
 
-JSHash and JSHMac functions use some Open Source code snippets. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
+Some modules of this package use Open Source code snippets. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
 - Project: crypto-es https://github.com/entronad/crypto-es
 
