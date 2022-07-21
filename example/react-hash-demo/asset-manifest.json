@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/react-hash-demo/static/js/main.e648a79b.js",
+    "index.html": "/react-hash-demo/index.html",
+    "main.e648a79b.js.map": "/react-hash-demo/static/js/main.e648a79b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e648a79b.js"
+  ]
+}
