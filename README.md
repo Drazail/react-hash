@@ -1,4 +1,6 @@
 # react-hash
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDrazail%2Freact-hash.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDrazail%2Freact-hash?ref=badge_shield)
+
 
 ## Getting started
 
@@ -120,3 +122,7 @@ Some modules of this package use Open Source code snippets. You can find the sou
 - License (MIT) https://github.com/entronad/crypto-es/blob/master/LICENSE
 
 ---
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDrazail%2Freact-hash.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDrazail%2Freact-hash?ref=badge_large)
