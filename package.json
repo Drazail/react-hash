@@ -2,7 +2,7 @@
   "name": "react-hash",
   "title": "React Hash",
   "description": "A hashing library for react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "repository": {
     "type": "git",
